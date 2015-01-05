@@ -1,0 +1,6 @@
+# Localization file : ja_JP
+
+thevoid.config.general.dimensionTheVoid=The Void ディメンション
+thevoid.config.general.dimensionTheVoid.tooltip=The Void ディメンションのIDを指定します。
+
+tile.voidPortal.name=Void ポータルブロック
