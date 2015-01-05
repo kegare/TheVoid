@@ -44,6 +44,7 @@ public class BlockVoidPortal extends BlockPortal
 		this.setBlockTextureName("thevoid:portal");
 		this.setBlockUnbreakable();
 		this.setStepSound(soundTypeGlass);
+		this.setTickRandomly(false);
 		this.disableStats();
 	}
 
@@ -238,6 +239,12 @@ public class BlockVoidPortal extends BlockPortal
 		{
 			entity.timeUntilPortal = entity.getPortalCooldown();
 		}
+	}
+
+	@Override
+	public boolean func_149698_L()
+	{
+		return false;
 	}
 
 	@Override

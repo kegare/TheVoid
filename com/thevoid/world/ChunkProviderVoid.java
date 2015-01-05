@@ -38,12 +38,9 @@ public class ChunkProviderVoid implements IChunkProvider
 	@Override
 	public Chunk provideChunk(int chunkX, int chunkZ)
 	{
-		Block[] blocks = new Block[65536];
-		byte[] metadata = new byte[blocks.length];
-		Chunk chunk = new Chunk(worldObj, blocks, metadata, chunkX, chunkZ);
+		Chunk chunk = new Chunk(worldObj, new Block[65536], new byte[65536], chunkX, chunkZ);
 
 		Arrays.fill(chunk.getBiomeArray(), (byte)0);
-		chunk.generateSkylightMap();
 
 		return chunk;
 	}

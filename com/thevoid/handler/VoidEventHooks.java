@@ -11,11 +11,11 @@ package com.thevoid.handler;
 
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
-import net.minecraft.entity.monster.IMob;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.MathHelper;
 import net.minecraft.world.WorldServer;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.event.entity.living.LivingPackSizeEvent;
@@ -25,10 +25,12 @@ import net.minecraftforge.event.entity.player.PlayerInteractEvent.Action;
 
 import com.thevoid.core.Config;
 import com.thevoid.core.TheVoid;
+import com.thevoid.util.VoidUtils;
 
 import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.common.eventhandler.Event.Result;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import cpw.mods.fml.common.gameevent.PlayerEvent.PlayerLoggedInEvent;
 import cpw.mods.fml.common.gameevent.PlayerEvent.PlayerRespawnEvent;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -54,7 +56,7 @@ public class VoidEventHooks
 	}
 
 	@SubscribeEvent
-	public void onPlayerRespawn(PlayerRespawnEvent event)
+	public void onPlayerLoggedIn(PlayerLoggedInEvent event)
 	{
 		if (event.player instanceof EntityPlayerMP)
 		{
@@ -62,7 +64,37 @@ public class VoidEventHooks
 
 			if (player.dimension == Config.dimensionTheVoid)
 			{
+				int x = MathHelper.floor_double(player.posX);
+				int y = MathHelper.floor_double(player.posY);
+				int z = MathHelper.floor_double(player.posZ);
+
+				if (player.getServerForPlayer().isAirBlock(x, y - 1, z))
+				{
+					VoidUtils.teleportPlayer(player, player.dimension);
+				}
+			}
+		}
+	}
+
+	@SubscribeEvent
+	public void onPlayerRespawn(PlayerRespawnEvent event)
+	{
+		if (event.player instanceof EntityPlayerMP)
+		{
+			EntityPlayerMP player = (EntityPlayerMP)event.player;
+			WorldServer world = player.getServerForPlayer();
+			int x = MathHelper.floor_double(player.posX);
+			int y = MathHelper.floor_double(player.posY);
+			int z = MathHelper.floor_double(player.posZ);
+
+			if (player.dimension == Config.dimensionTheVoid)
+			{
 				player.timeUntilPortal = 60;
+			}
+
+			if (world.isAirBlock(x, y - 1, z))
+			{
+				VoidUtils.teleportPlayer(player, player.dimension);
 			}
 		}
 	}
@@ -122,7 +154,7 @@ public class VoidEventHooks
 	@SubscribeEvent
 	public void onLivingCheckSpawn(LivingSpawnEvent.CheckSpawn event)
 	{
-		if (event.entityLiving.dimension == Config.dimensionTheVoid && event.entityLiving instanceof IMob)
+		if (event.entityLiving.dimension == Config.dimensionTheVoid)
 		{
 			event.setResult(Result.DENY);
 		}
@@ -131,7 +163,7 @@ public class VoidEventHooks
 	@SubscribeEvent
 	public void onLivingSpecialSpawn(LivingSpawnEvent.SpecialSpawn event)
 	{
-		if (event.entityLiving.dimension == Config.dimensionTheVoid && event.entityLiving instanceof IMob)
+		if (event.entityLiving.dimension == Config.dimensionTheVoid)
 		{
 			event.setCanceled(true);
 		}
@@ -140,7 +172,7 @@ public class VoidEventHooks
 	@SubscribeEvent
 	public void onLivingPackSize(LivingPackSizeEvent event)
 	{
-		if (event.entityLiving.dimension == Config.dimensionTheVoid && event.entityLiving instanceof IMob)
+		if (event.entityLiving.dimension == Config.dimensionTheVoid)
 		{
 			event.maxPackSize = 0;
 			event.setResult(Result.ALLOW);
