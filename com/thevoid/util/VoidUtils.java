@@ -75,7 +75,7 @@ public class VoidUtils
 		{
 			for (int z = originZ - range; z < originZ + range; ++z)
 			{
-				for (int y = world.getActualHeight() - 5; y > 1; --y)
+				for (int y = 0; y < world.getActualHeight(); ++y)
 				{
 					if (world.isAirBlock(x, y, z) && world.isAirBlock(x, y + 1, z))
 					{
@@ -121,7 +121,7 @@ public class VoidUtils
 
 		if (world.isAirBlock(x, y, z) && world.isAirBlock(x, y + 1, z))
 		{
-			while (world.isAirBlock(x, y - 1, z))
+			while (y > 1 && world.isAirBlock(x, y - 1, z))
 			{
 				--y;
 			}

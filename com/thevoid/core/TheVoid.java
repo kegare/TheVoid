@@ -9,6 +9,8 @@
 
 package com.thevoid.core;
 
+import net.minecraft.init.Items;
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.DimensionManager;
 import net.minecraftforge.common.MinecraftForge;
 
@@ -16,6 +18,7 @@ import org.apache.logging.log4j.Level;
 
 import com.thevoid.block.BlockVoidPortal;
 import com.thevoid.handler.VoidEventHooks;
+import com.thevoid.item.ItemVoidCore;
 import com.thevoid.plugin.thaumcraft.ThaumcraftPlugin;
 import com.thevoid.world.WorldProviderVoid;
 
@@ -42,7 +45,7 @@ public class TheVoid
 	{
 		Config.syncConfig();
 
-		GameRegistry.registerBlock(void_portal, "void_portal");
+		GameRegistry.registerBlock(void_portal, ItemVoidCore.class, "void_portal");
 	}
 
 	@EventHandler
@@ -52,6 +55,8 @@ public class TheVoid
 
 		DimensionManager.registerProviderType(id, WorldProviderVoid.class, true);
 		DimensionManager.registerDimension(id, id);
+
+		GameRegistry.addShapelessRecipe(new ItemStack(void_portal), Items.ender_pearl, Items.map);
 
 		FMLCommonHandler.instance().bus().register(VoidEventHooks.instance);
 

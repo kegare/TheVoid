@@ -4,3 +4,5 @@ thevoid.config.general.dimensionTheVoid=The Void Dimension
 thevoid.config.general.dimensionTheVoid.tooltip=Specify the dimension id for the Void dimension.
 
 tile.voidPortal.name=Void Portal Block
+
+item.voidCore.name=Void Core

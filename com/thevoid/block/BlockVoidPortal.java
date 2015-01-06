@@ -15,6 +15,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockPortal;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityList;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -45,6 +46,7 @@ public class BlockVoidPortal extends BlockPortal
 		this.setBlockUnbreakable();
 		this.setStepSound(soundTypeGlass);
 		this.setTickRandomly(false);
+		this.setCreativeTab(CreativeTabs.tabMaterials);
 		this.disableStats();
 	}
 
@@ -269,6 +271,13 @@ public class BlockVoidPortal extends BlockPortal
 	public void registerBlockIcons(IIconRegister iconRegister)
 	{
 		blockIcon = iconRegister.registerIcon(getTextureName());
+	}
+
+	@SideOnly(Side.CLIENT)
+	@Override
+	public String getItemIconName()
+	{
+		return "thevoid:void_core";
 	}
 
 	private class Size

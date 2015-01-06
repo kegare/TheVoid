@@ -9,22 +9,18 @@
 
 package com.thevoid.handler;
 
-import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.audio.SoundCategory;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.init.Items;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.WorldServer;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
+import net.minecraftforge.client.event.sound.PlaySoundEvent17;
 import net.minecraftforge.event.entity.living.LivingPackSizeEvent;
 import net.minecraftforge.event.entity.living.LivingSpawnEvent;
-import net.minecraftforge.event.entity.player.PlayerInteractEvent;
-import net.minecraftforge.event.entity.player.PlayerInteractEvent.Action;
 
 import com.thevoid.core.Config;
-import com.thevoid.core.TheVoid;
 import com.thevoid.util.VoidUtils;
 
 import cpw.mods.fml.client.FMLClientHandler;
@@ -51,6 +47,23 @@ public class VoidEventHooks
 			if (mc.gameSettings.showDebugInfo)
 			{
 				event.left.add("dim: The Void");
+			}
+		}
+	}
+
+	@SideOnly(Side.CLIENT)
+	@SubscribeEvent
+	public void onPlaySound(PlaySoundEvent17 event)
+	{
+		Minecraft mc = FMLClientHandler.instance().getClient();
+
+		if (mc.theWorld != null && mc.theWorld.provider.dimensionId == Config.dimensionTheVoid)
+		{
+			SoundCategory category = event.category;
+
+			if (category != null && (category == SoundCategory.MUSIC || category == SoundCategory.WEATHER || category == SoundCategory.AMBIENT))
+			{
+				event.result = null;
 			}
 		}
 	}
@@ -95,58 +108,6 @@ public class VoidEventHooks
 			if (world.isAirBlock(x, y - 1, z))
 			{
 				VoidUtils.teleportPlayer(player, player.dimension);
-			}
-		}
-	}
-
-	@SubscribeEvent
-	public void onPlayerInteract(PlayerInteractEvent event)
-	{
-		if (event.entityPlayer instanceof EntityPlayerMP && event.action == Action.RIGHT_CLICK_BLOCK)
-		{
-			EntityPlayerMP player = (EntityPlayerMP)event.entityPlayer;
-			ItemStack current = player.getCurrentEquippedItem();
-			WorldServer world = player.getServerForPlayer();
-
-			if (current != null && current.getItem() == Items.ender_pearl)
-			{
-				int x = event.x;
-				int y = event.y;
-				int z = event.z;
-
-				switch (event.face)
-				{
-					case 0:
-						--y;
-						break;
-					case 1:
-						++y;
-						break;
-					case 2:
-						--z;
-						break;
-					case 3:
-						++z;
-						break;
-					case 4:
-						--x;
-						break;
-					case 5:
-						++x;
-						break;
-				}
-
-				if (TheVoid.void_portal.func_150000_e(world, x, y, z))
-				{
-					world.playSoundEffect(x + 0.5D, y + 0.5D, z + 0.5D, Block.soundTypeGlass.func_150496_b(), 1.0F, 2.0F);
-
-					if (!player.capabilities.isCreativeMode && --current.stackSize <= 0)
-					{
-						player.inventory.setInventorySlotContents(player.inventory.currentItem, null);
-					}
-
-					event.setCanceled(true);
-				}
 			}
 		}
 	}
