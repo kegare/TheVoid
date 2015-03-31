@@ -7,7 +7,7 @@
  * This mod is distributed under the terms of the Minecraft Mod Public License Japanese Translation, or MMPL_J.
  */
 
-package com.thevoid.world;
+package thevoid.world;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.world.Teleporter;
@@ -21,10 +21,10 @@ public class TeleporterDummy extends Teleporter
 	}
 
 	@Override
-	public void placeInPortal(Entity entity, double posX, double posY, double posZ, float rotationYaw) {}
+	public void placeInPortal(Entity entity, float rotationYaw) {}
 
 	@Override
-	public boolean placeInExistingPortal(Entity entity, double posX, double posY, double posZ, float rotationYaw)
+	public boolean placeInExistingPortal(Entity entity, float rotationYaw)
 	{
 		return true;
 	}

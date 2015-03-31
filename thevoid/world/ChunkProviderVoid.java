@@ -7,15 +7,14 @@
  * This mod is distributed under the terms of the Minecraft Mod Public License Japanese Translation, or MMPL_J.
  */
 
-package com.thevoid.world;
+package thevoid.world;
 
 import java.util.Arrays;
 import java.util.List;
 
-import net.minecraft.block.Block;
 import net.minecraft.entity.EnumCreatureType;
+import net.minecraft.util.BlockPos;
 import net.minecraft.util.IProgressUpdate;
-import net.minecraft.world.ChunkPosition;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.chunk.IChunkProvider;
@@ -30,15 +29,15 @@ public class ChunkProviderVoid implements IChunkProvider
 	}
 
 	@Override
-	public Chunk loadChunk(int chunkX, int chunkZ)
+	public Chunk provideChunk(BlockPos blockPosIn)
 	{
-		return provideChunk(chunkX, chunkZ);
+		return null;
 	}
 
 	@Override
-	public Chunk provideChunk(int chunkX, int chunkZ)
+	public Chunk provideChunk(int x, int z)
 	{
-		Chunk chunk = new Chunk(worldObj, new Block[65536], new byte[65536], chunkX, chunkZ);
+		Chunk chunk = new Chunk(worldObj, x, z);
 
 		Arrays.fill(chunk.getBiomeArray(), (byte)0);
 
@@ -53,6 +52,12 @@ public class ChunkProviderVoid implements IChunkProvider
 
 	@Override
 	public void populate(IChunkProvider chunkProvider, int chunkX, int chunkZ) {}
+
+	@Override
+	public boolean func_177460_a(IChunkProvider chunkProvider, Chunk chunk, int x, int z)
+	{
+		return false;
+	}
 
 	@Override
 	public boolean saveChunks(boolean flag, IProgressUpdate progress)
@@ -82,13 +87,13 @@ public class ChunkProviderVoid implements IChunkProvider
 	}
 
 	@Override
-	public List getPossibleCreatures(EnumCreatureType creature, int x, int y, int z)
+	public List func_177458_a(EnumCreatureType type, BlockPos pos)
 	{
 		return null;
 	}
 
 	@Override
-	public ChunkPosition func_147416_a(World world, String name, int x, int y, int z)
+	public BlockPos getStrongholdGen(World worldIn, String name, BlockPos pos)
 	{
 		return null;
 	}
@@ -100,5 +105,5 @@ public class ChunkProviderVoid implements IChunkProvider
 	}
 
 	@Override
-	public void recreateStructures(int chunkX, int chunkZ) {}
+	public void recreateStructures(Chunk chunk, int x, int z) {}
 }

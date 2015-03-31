@@ -7,10 +7,12 @@
  * This mod is distributed under the terms of the Minecraft Mod Public License Japanese Translation, or MMPL_J.
  */
 
-package com.thevoid.world;
+package thevoid.world;
 
+import thevoid.client.renderer.EmptyRenderer;
+import thevoid.core.Config;
 import net.minecraft.entity.Entity;
-import net.minecraft.util.ChunkCoordinates;
+import net.minecraft.util.BlockPos;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.WorldProvider;
 import net.minecraft.world.biome.BiomeGenBase;
@@ -18,12 +20,8 @@ import net.minecraft.world.biome.WorldChunkManagerHell;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraftforge.client.IRenderHandler;
-
-import com.thevoid.client.renderer.EmptyRenderer;
-import com.thevoid.core.Config;
-
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class WorldProviderVoid extends WorldProvider
 {
@@ -70,7 +68,7 @@ public class WorldProviderVoid extends WorldProvider
 	@Override
 	public Vec3 getFogColor(float angle, float ticks)
 	{
-		return Vec3.createVectorHelper(0.001D, 0.001D, 0.001D);
+		return new Vec3(0.001D, 0.001D, 0.001D);
 	}
 
 	@SideOnly(Side.CLIENT)
@@ -95,13 +93,6 @@ public class WorldProviderVoid extends WorldProvider
 
 	@SideOnly(Side.CLIENT)
 	@Override
-	public boolean getWorldHasVoidParticles()
-	{
-		return false;
-	}
-
-	@SideOnly(Side.CLIENT)
-	@Override
 	public double getVoidFogYFactor()
 	{
 		return 0.0D;
@@ -114,6 +105,12 @@ public class WorldProviderVoid extends WorldProvider
 	}
 
 	@Override
+	public String getInternalNameSuffix()
+	{
+		return "_void";
+	}
+
+	@Override
 	public String getWelcomeMessage()
 	{
 		return "Entering the Void";
@@ -122,7 +119,7 @@ public class WorldProviderVoid extends WorldProvider
 	@Override
 	public String getDepartMessage()
 	{
-		return "Leaving teh Void";
+		return "Leaving the Void";
 	}
 
 	@SideOnly(Side.CLIENT)
@@ -235,25 +232,31 @@ public class WorldProviderVoid extends WorldProvider
 	}
 
 	@Override
-	public boolean canBlockFreeze(int x, int y, int z, boolean byWater)
+	public boolean canBlockFreeze(BlockPos pos, boolean byWater)
 	{
 		return false;
 	}
 
 	@Override
-	public boolean canSnowAt(int x, int y, int z, boolean checkLight)
+	public boolean canSnowAt(BlockPos pos, boolean checkLight)
 	{
 		return false;
 	}
 
 	@Override
-	public ChunkCoordinates getSpawnPoint()
+	public BlockPos getSpawnPoint()
 	{
-		return new ChunkCoordinates(0, 0, 0);
+		return BlockPos.ORIGIN;
 	}
 
 	@Override
-	public boolean isBlockHighHumidity(int x, int y, int z)
+	public BlockPos getRandomizedSpawnPoint()
+	{
+		return getSpawnPoint();
+	}
+
+	@Override
+	public boolean isBlockHighHumidity(BlockPos pos)
 	{
 		return false;
 	}

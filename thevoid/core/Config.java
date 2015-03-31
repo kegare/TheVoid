@@ -7,7 +7,7 @@
  * This mod is distributed under the terms of the Minecraft Mod Public License Japanese Translation, or MMPL_J.
  */
 
-package com.thevoid.core;
+package thevoid.core;
 
 import java.io.File;
 import java.util.List;
@@ -15,13 +15,12 @@ import java.util.List;
 import net.minecraft.util.StatCollector;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.common.config.Property;
+import net.minecraftforge.fml.common.FMLLog;
+import net.minecraftforge.fml.common.Loader;
 
 import org.apache.logging.log4j.Level;
 
 import com.google.common.collect.Lists;
-
-import cpw.mods.fml.common.FMLLog;
-import cpw.mods.fml.common.Loader;
 
 public class Config
 {
