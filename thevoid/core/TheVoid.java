@@ -15,7 +15,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.common.DimensionManager;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
@@ -26,11 +25,7 @@ import thevoid.handler.VoidEventHooks;
 import thevoid.item.ItemVoidCore;
 import thevoid.world.WorldProviderVoid;
 
-@Mod
-(
-	modid = "thevoid",
-	acceptedMinecraftVersions = "[1.8,)"
-)
+@Mod(modid = "thevoid", guiFactory = "thevoid.client.config.VoidGuiFactory")
 public class TheVoid
 {
 	public static final BlockVoidPortal void_portal = new BlockVoidPortal();
@@ -61,8 +56,6 @@ public class TheVoid
 		DimensionManager.registerDimension(id, id);
 
 		GameRegistry.addShapelessRecipe(new ItemStack(void_core), Items.ender_pearl, Items.map);
-
-		FMLCommonHandler.instance().bus().register(VoidEventHooks.instance);
 
 		MinecraftForge.EVENT_BUS.register(VoidEventHooks.instance);
 	}

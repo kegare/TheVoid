@@ -87,7 +87,7 @@ public class ChunkProviderVoid implements IChunkProvider
 	}
 
 	@Override
-	public List func_177458_a(EnumCreatureType type, BlockPos pos)
+	public List getPossibleCreatures(EnumCreatureType type, BlockPos pos)
 	{
 		return null;
 	}

@@ -19,6 +19,7 @@ import net.minecraftforge.client.event.sound.PlaySoundEvent;
 import net.minecraftforge.event.entity.living.LivingPackSizeEvent;
 import net.minecraftforge.event.entity.living.LivingSpawnEvent;
 import net.minecraftforge.fml.client.FMLClientHandler;
+import net.minecraftforge.fml.client.event.ConfigChangedEvent.OnConfigChangedEvent;
 import net.minecraftforge.fml.common.eventhandler.Event.Result;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent.PlayerLoggedInEvent;
@@ -31,6 +32,16 @@ import thevoid.util.VoidUtils;
 public class VoidEventHooks
 {
 	public static final VoidEventHooks instance = new VoidEventHooks();
+
+	@SideOnly(Side.CLIENT)
+	@SubscribeEvent
+	public void onConfigChanged(OnConfigChangedEvent event)
+	{
+		if (event.modID.equals("thevoid"))
+		{
+			Config.syncConfig();
+		}
+	}
 
 	@SideOnly(Side.CLIENT)
 	@SubscribeEvent

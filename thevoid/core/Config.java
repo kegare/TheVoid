@@ -12,15 +12,15 @@ package thevoid.core;
 import java.io.File;
 import java.util.List;
 
+import org.apache.logging.log4j.Level;
+
+import com.google.common.collect.Lists;
+
 import net.minecraft.util.StatCollector;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.common.config.Property;
 import net.minecraftforge.fml.common.FMLLog;
 import net.minecraftforge.fml.common.Loader;
-
-import org.apache.logging.log4j.Level;
-
-import com.google.common.collect.Lists;
 
 public class Config
 {
@@ -59,7 +59,7 @@ public class Config
 		List<String> propOrder = Lists.newArrayList();
 
 		prop = config.get(category, "dimensionTheVoid", -9);
-		prop.setLanguageKey("thevoid.config." + category + "." + prop.getName());
+		prop.setLanguageKey("thevoid.config." + category + "." + prop.getName()).setRequiresMcRestart(true);
 		prop.comment = StatCollector.translateToLocal(prop.getLanguageKey() + ".tooltip");
 		prop.comment += " [range: " + prop.getMinValue() + " ~ " + prop.getMaxValue() + ", default: " + prop.getDefault() + "]";
 		propOrder.add(prop.getName());

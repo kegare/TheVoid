@@ -13,6 +13,8 @@ import java.util.Iterator;
 import java.util.Random;
 import java.util.Set;
 
+import com.google.common.collect.Sets;
+
 import net.minecraft.block.BlockPortal;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
@@ -28,8 +30,6 @@ import net.minecraft.world.ChunkCoordIntPair;
 import net.minecraft.world.Teleporter;
 import net.minecraft.world.WorldServer;
 import thevoid.core.TheVoid;
-
-import com.google.common.collect.Sets;
 
 public class TeleporterVoid extends Teleporter
 {
@@ -151,7 +151,7 @@ public class TeleporterVoid extends Teleporter
 				enumfacing = EnumFacing.WEST;
 			}
 
-			EnumFacing enumfacing1 = EnumFacing.getHorizontal(entityIn.getTeleportDirection());
+			EnumFacing enumfacing1 = EnumFacing.getHorizontal(0);
 
 			if (enumfacing != null)
 			{

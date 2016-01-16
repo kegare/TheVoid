@@ -1,5 +1,6 @@
 # Localization file : en_US
 
+thevoid.config.title=The Void Configuration
 thevoid.config.general.dimensionTheVoid=The Void Dimension
 thevoid.config.general.dimensionTheVoid.tooltip=Specify the dimension id for the Void dimension.
 
